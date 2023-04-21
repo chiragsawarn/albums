@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../store";
+// import { Skeleton } from "@mui/material";
+import Skeleton from "./Skeleton";
 
 export default function UsersList() {
   const dispatch = useDispatch();
@@ -13,7 +15,12 @@ export default function UsersList() {
     dispatch(fetchUsers());
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div>
+        <Skeleton times={6} className="w-100 h-5" />
+      </div>
+    );
   if (error) return <div>Error fetching data...</div>;
 
   const content = data.map((user) => {
